@@ -14,9 +14,16 @@ const contactsPath = path_1.default.join(__dirname, "db/contacts.json");
  * @returns Promise<IContact[]>
  */
 async function listContacts() {
-    const file = await promises_1.default.readFile(contactsPath, "utf-8");
-    const result = JSON.parse(file);
-    return result;
+    try {
+        const file = await promises_1.default.readFile(contactsPath, "utf-8");
+        const result = JSON.parse(file);
+        return result;
+    }
+    catch (error) {
+        console.error(error);
+        const result = [];
+        return result;
+    }
 }
 exports.listContacts = listContacts;
 async function getContactById(contactId) {

@@ -19,9 +19,15 @@ export interface IContact {
  * @returns Promise<IContact[]>
  */
 export async function listContacts() {
-  const file = await fs.readFile(contactsPath, "utf-8");
-  const result: IContact[] = JSON.parse(file);
-  return result;
+  try {
+    const file = await fs.readFile(contactsPath, "utf-8");
+    const result: IContact[] = JSON.parse(file);
+    return result;
+  } catch (error) {
+    console.error(error);
+    const result: IContact[] = [];
+    return result;
+  }
 }
 
 export async function getContactById(contactId: ID) {
